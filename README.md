@@ -1,7 +1,21 @@
-![Image_159439392731577](https://github.com/user-attachments/assets/12b6dd2d-0823-4b50-a3d5-5d173b12b37a)
-![logo](https://github.com/user-attachments/assets/28102d8f-7137-4b21-869a-95c5c70e0c30)
-![Image_159439392731577](https://github.com/user-attachments/assets/52298acf-2cb5-45fc-b0e0-c2fb1e70d52f)
+本工具基于cpp开发，为了打破技术限制而自研的easy Root目前处于测试阶段，将来将支持Z10的root并完全开源
+ 
+ADB状态检测：验证设备是否开启ADB调试
+​
+APK安装：支持手动输入APK路径，通过ADB命令将应用安装至设备
+​
+手表投屏：集成sc工具实现手表屏幕实时投屏到电脑
+​
+工具下载：内置sc自动下载与安装功能，无需手动配置环境
+ 
+1. 环境要求：
+​
+Windows系统（支持Windows 7及以上）
 
-描述
-现在圈子里太依赖sky了所以
-我们团队用纯cpp重写了EasyRoot
+已安装ADB驱动程序，确保设备通过USB连接后能被电脑识别。
+​
+设备需开启USB调试模式（以小天才手表为例，需在设置中手动启用）
+​
+2. 工具依赖：
+​
+sc工具（用于投屏功能，首次使用时可通过菜单选项4自动下载）
