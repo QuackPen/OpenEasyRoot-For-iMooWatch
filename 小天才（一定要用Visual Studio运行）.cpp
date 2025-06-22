@@ -10,10 +10,17 @@
 #include <thread>
 #include <atomic>
 #include <direct.h> // 添加目录操作支持
+#include <conio.h>  // 修复_kbhit未定义
+#include <errno.h>  // 修复EEXIST未定义
 #pragma comment(lib, "setupapi.lib")
 #pragma comment(lib, "cfgmgr32.lib")
 
-// ... 其他代码保持不变 ...
+// 声明/定义缺失的全局变量和函数
+std::atomic<bool> isMirroringRunning(false); // 修复未定义
+
+// 假设trim和isAdbEnabledOnDevice已实现，否则可简单声明如下：
+std::string trim(const std::string& s); // 声明
+bool isAdbEnabledOnDevice();            // 声明
 
 // 新增：检查文件是否存在
 bool fileExists(const std::string& path) {
@@ -148,13 +155,15 @@ bool processConsoleInput() {
     std::string choice;
     std::getline(std::cin, choice);
     choice = trim(choice);
-    
+
     if (choice == "1") {
         // ... 保持不变 ...
-    } 
+        return true;
+    }
     else if (choice == "2") {
         // ... 保持不变 ...
-    } 
+        return true;
+    }
     else if (choice == "3") {
         startScreenMirroring();
         system("pause");
@@ -169,10 +178,10 @@ bool processConsoleInput() {
         std::cout << "【关于我们】Qmoo社区,主群:1050033206;CK:623908523;CEO:22518482081\n";
         system("pause");
         return true;
-    } 
+    }
     else if (choice == "6") { // 退出程序
         return false;
-    } 
+    }
     else {
         std::cout << "【错误】无效选择，请输入1-6\n";
         system("pause");
@@ -180,9 +189,28 @@ bool processConsoleInput() {
     }
 }
 
-// ... 其他函数保持不变 ...
+// 实现trim函数
+std::string trim(const std::string& s) {
+    size_t start = s.find_first_not_of(" \t\r\n");
+    if (start == std::string::npos) return "";
+    size_t end = s.find_last_not_of(" \t\r\n");
+    return s.substr(start, end - start + 1);
+}
+
+// 实现isAdbEnabledOnDevice函数
+bool isAdbEnabledOnDevice() {
+    // 检查adb devices输出是否有device
+    int result = system("adb devices | findstr \"\tdevice\" >nul");
+    return result == 0;
+}
 
 int main() {
+    // 设置控制台为UTF-8编码，防止中文乱码
+    system("chcp 65001 >nul");
     // 不需要在main函数中检查scrcpy，改为在菜单中显示状态
     // ... 窗口创建代码保持不变 ...
+    while (processConsoleInput()) {
+        // 循环直到用户选择退出
+    }
+    return 0;
 }
