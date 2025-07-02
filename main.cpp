@@ -70,7 +70,8 @@ void startScreenMirroring() {
         NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi
     );
     if (!success) {
-        std::cout << "【错误】启动scrcpy失败\n";
+        std::cout << "【错误】启动scrcpy失败，错误码: " << GetLastError() << std::endl;
+        std::cout << "【提示】请检查 scrcpy.exe 是否存在，依赖库是否齐全，或尝试以管理员身份运行本程序。\n";
         return;
     }
 
