@@ -174,7 +174,7 @@ void downloadScrcpy() {
         std::cout << "【错误】下载失败，请检查网络连接\n";
         return;
     }
-
+// 包含运行环境问题肯能会导致powershell指令执行异常 //
     std::cout << "【提示】正在解压文件...\n";
 
     // 修正：先解压到临时目录，再移动文件到scrcpy目录
